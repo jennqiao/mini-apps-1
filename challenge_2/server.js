@@ -1,6 +1,9 @@
 var express = require('express');
 var parser = require('body-parser');
 var morgan = require('morgan');
+// var Promise = require('bluebird');
+// var fs = Promise.promisifyAll(require('fs')); 
+var fs = require('fs');
 
 var app = express();
 
@@ -26,26 +29,15 @@ app.use(express.static('client'));
 
 app.post('/', function(req, res) {
 
-  // console.log('here is the req', req);
-  console.log('got the req body!', req.body);
+  var data = JSON.parse(req.body.result);
 
-  handleReq(req.body.result, function(csv) {
+  handleReq(data, function(csv) {
       res.send(JSON.stringify(csv));
   });
 
 })
 
 function handleReq(data, callback) {
-
-  //flatten obj with nested children objs
-  //join array with commas
-
-  //loop through obj keys and push into array
-    //skip children key
-  //for each obj
-    //loop through key values, and push to array
-    //if it has children,
-      //for each children, do the same thing
 
   var headers = [];
   var content = [];
@@ -57,15 +49,11 @@ function handleReq(data, callback) {
   }
 
   function addToCSV(obj) {
-
     var row = [];
-
     for (var i=0; i<headers.length; i++) {
       row.push(obj[headers[i]]);
     }
-
     content.push(row);
-
     if (obj['children']) {
 
       for (var i=0; i<obj['children'].length; i++) {
@@ -83,8 +71,17 @@ function handleReq(data, callback) {
   }
   string += content.join('\n');
 
+  callback(string);
 
-  return string;
+
+  //  fs.writeFile('./samples/report.csv', string, 'utf8', function(err) {
+  //   if (err) {
+  //     console.log('error',err);
+  //   } else {
+  //     console.log('written!');
+  //   }
+  // })
+
 
 
 }
