@@ -1,8 +1,26 @@
 $(document).ready(function() {
 
-  renderTable();
+  app.init();
 
-  $(document).on('click', '#submitButton', function() {
+});
+
+var app = {
+
+  server: 'http://127.0.0.1:3000',
+
+  init: function() {
+
+    app.renderTable();
+
+    $(document).on('click', '#submitButton', function() {
+      app.handleClick();
+    })
+
+  },
+
+  handleClick: function() {
+    console.log('clicked!');
+
     var text = $('#inputBox').val();
 
     if (text[text.length-1] === ';') {
@@ -18,10 +36,9 @@ $(document).ready(function() {
         url: 'http://127.0.0.1:3000',
         data: JSON.stringify(textObj), 
         contentType: 'application/json',
-        // dataType: 'application/json',
         success: function(data, status) {
           console.log('received data!', data);
-          handleData(data);
+          app.handleData(data);
 
           //display data on screen
         },
@@ -31,11 +48,11 @@ $(document).ready(function() {
       })
     }
 
-  });
+  },
 
-  function handleData (data) {
+  handleData: function(data) {
 
-    if (data[0]=== '"') {
+      if (data[0]=== '"') {
       data = data.slice(1);
     } 
     if (data[data.length-1] === '"') {
@@ -60,21 +77,18 @@ $(document).ready(function() {
 
     }
 
-    renderTable();
+    this.renderTable();
 
-  }
+  },
 
-  function renderTable() {
-
+  renderTable: function() {
     if ($('#csv > tr > td').length === 0) {
       $('#csv').toggle();
     } else {
        $('#csv').toggle();
     }
-
   }
 
 
-
-});
+}
 
