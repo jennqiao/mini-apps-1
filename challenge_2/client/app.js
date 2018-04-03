@@ -3,19 +3,15 @@ $(document).ready(function() {
   renderTable();
 
   $(document).on('click', '#submitButton', function() {
-    var text = $('input[type=text]').val();
+    var text = $('#inputBox').val();
 
     if (text[text.length-1] === ';') {
       alert("Input cannot end in a semicolon");
 
     } else {
 
-      $('input[type=text]').val('');
+      $('#inputBox').val('');
       var textObj = {'result': text};
-      console.log(textObj);
-
-      //validate that it's an obj
-      //validate that it has no semicolon
 
       $.ajax({
         type: 'POST',
@@ -25,16 +21,15 @@ $(document).ready(function() {
         // dataType: 'application/json',
         success: function(data, status) {
           console.log('received data!', data);
-          console.log(status)
-
           handleData(data);
 
           //display data on screen
+        },
+        error: function(data) {
+          console.log('error', data);
         }
       })
     }
-
-
 
   });
 
@@ -66,7 +61,6 @@ $(document).ready(function() {
     }
 
     renderTable();
-
 
   }
 
