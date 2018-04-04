@@ -12,12 +12,20 @@ class App extends React.Component {
   }
 
   
-  onClick(row,col) {
-    console.log('clicked!', row, col);
-  
+  onClick(col) {
+    console.log('clicked!', col);
+    
     var copyBoard =  this.state.board.slice(0);
+    var row = 0;
+    for (var i=0; i<copyBoard.length; i++) {
+      if (copyBoard[i][col] === 0) {
+        row = i;
+      }
+    }    
+  
     copyBoard[row][col] = this.state.isFirstPlayer ? 1 : -1;
     console.log(copyBoard);
+
     this.setState({
       board:   copyBoard,
       isFirstPlayer: !this.state.isFirstPlayer
@@ -34,17 +42,7 @@ class App extends React.Component {
       
         <table>
           <tbody>
-          <tr>
-            <th>1</th>
-            <th>2</th>
-            <th>3</th>
-            <th>4</th>
-            <th>5</th>
-            <th>6</th>
-            <th>7</th>
-
-          </tr>
-          
+          <Headers data={[0,1,2,3,4,5,6]} selectColumn={this.onClick} />   
           {
             this.state.board.map((row, index)=> {
               return <Row data={row} row={index} selectSquare={this.onClick} />
@@ -57,6 +55,20 @@ class App extends React.Component {
     )
   }
 }
+
+var Headers = ({data, selectColumn}) =>  (
+
+  <tr>
+    {
+    
+      data.map((row, index) => {
+        return <th onClick={ ()=> {selectColumn(index)}}>{index+1}</th>
+      })
+      
+    }
+  </tr>
+
+)
 
 var Row = ({data, row, selectSquare}) => (
 
