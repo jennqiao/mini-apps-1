@@ -1,0 +1,8 @@
+var App = () => React.createElement(
+	"div",
+	null,
+	"Hello world"
+);
+
+window.App = App;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL2FwcC5qc3giXSwibmFtZXMiOlsiQXBwIiwid2luZG93Il0sIm1hcHBpbmdzIjoiQUFBQSxJQUFJQSxNQUFNLE1BQ1Q7QUFBQTtBQUFBO0FBQUE7QUFBQSxDQUREOztBQUlBQyxPQUFPRCxHQUFQLEdBQWFBLEdBQWIiLCJmaWxlIjoiYXBwLmpzIiwic291cmNlc0NvbnRlbnQiOlsidmFyIEFwcCA9ICgpID0+IChcblx0PGRpdj5IZWxsbyB3b3JsZDwvZGl2PlxuKVxuXG53aW5kb3cuQXBwID0gQXBwO1xuIl19
