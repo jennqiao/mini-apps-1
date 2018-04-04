@@ -34,6 +34,9 @@ class App extends React.Component {
     });
   
     this.checkRows();
+    this.checkCols();
+    this.checkRightDiags();
+    this.checkLeftDiags();
 
   }
 
@@ -67,16 +70,73 @@ class App extends React.Component {
     var board = this.state.board;
     for (var c=0; c<board[0].length; c++) {
 
-      for (var r=board.length-1; r>=0; r--) {
+      for (var r=board.length-1; r>2; r--) {
         var square = board[r][c];
         
         if (square !== 0) {
-
-          
+          if (square === board[r-1][c] && square === board[r-2][c] && square === board[r-3][c]) {
+            if (square === 1) {
+              this.setState({
+                winner: 'firstPlayer'
+              })
+            } else {
+              this.setState({
+                  winner: 'secondPlayer'
+                })
+            }
+          }
         }
-      
       }
     }
+  }
+
+  checkRightDiags(){
+    
+      var board = this.state.board;
+      for (var r=3; r<board.length; r++) {
+        var row = board[r];
+        for (var c=0; c<board.length-3; c++) {
+          var square = row[c];
+          if (square !== 0) {
+            if (square === board[r-1][c+1] && square === board[r-2][c+2] && square === board[r-3][c+3]) {
+              if (square === 1) {
+              this.setState({
+                winner: 'firstPlayer'
+              })
+              } else {
+              this.setState({
+                  winner: 'secondPlayer'
+                })
+              }
+            }
+          }
+        }
+      }
+
+  }
+
+  checkLeftDiags() {
+  
+      var board = this.state.board;
+      for (var r=0; r<board.length-3; r++) {
+        var row = board[r];
+        for (var c=0; c<board[0].length-3; c++) {
+          var square = row[c];
+          if (square !== 0) {
+            if (square === board[r+1][c+1] && square === board[r+2][c+2] && square === board[r+3][c+3]){
+              if (square === 1) {
+                this.setState({
+                  winner: 'firstPlayer'
+                })
+              } else {
+                this.setState({
+                    winner: 'secondPlayer'
+                })
+              }
+            }
+          }   
+        }
+      }
   }
 
   render() {
