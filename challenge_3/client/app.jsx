@@ -15,7 +15,6 @@ class App extends React.Component {
 
   
   onClick(col) {
-    console.log('clicked!', col);
     
     var copyBoard =  this.state.board.slice(0);
     var row = 0;
@@ -39,6 +38,20 @@ class App extends React.Component {
     this.checkLeftDiags();
 
   }
+  
+  setWinner(square) {
+  
+   if (square === 1) {
+    this.setState({
+        winner: 'first player'
+      })
+    } else {
+      this.setState({
+          winner: 'second player'
+        })
+    }
+
+  }
 
   checkRows() {
     
@@ -50,15 +63,7 @@ class App extends React.Component {
         var square = row[c];
         if (square !== 0) {
           if (square === row[c+1] && square === row[c+2] && square === row[c+3]) {
-            if (square === 1) {
-              this.setState({
-                winner: 'firstPlayer'
-              })
-            } else {
-              this.setState({
-                  winner: 'secondPlayer'
-                })
-            }
+            this.setWinner(square);
           }
         }      
       }
@@ -75,15 +80,8 @@ class App extends React.Component {
         
         if (square !== 0) {
           if (square === board[r-1][c] && square === board[r-2][c] && square === board[r-3][c]) {
-            if (square === 1) {
-              this.setState({
-                winner: 'firstPlayer'
-              })
-            } else {
-              this.setState({
-                  winner: 'secondPlayer'
-                })
-            }
+            this.setWinner(square);
+
           }
         }
       }
@@ -99,15 +97,7 @@ class App extends React.Component {
           var square = row[c];
           if (square !== 0) {
             if (square === board[r-1][c+1] && square === board[r-2][c+2] && square === board[r-3][c+3]) {
-              if (square === 1) {
-              this.setState({
-                winner: 'firstPlayer'
-              })
-              } else {
-              this.setState({
-                  winner: 'secondPlayer'
-                })
-              }
+              this.setWinner(square);
             }
           }
         }
@@ -124,15 +114,7 @@ class App extends React.Component {
           var square = row[c];
           if (square !== 0) {
             if (square === board[r+1][c+1] && square === board[r+2][c+2] && square === board[r+3][c+3]){
-              if (square === 1) {
-                this.setState({
-                  winner: 'firstPlayer'
-                })
-              } else {
-                this.setState({
-                    winner: 'secondPlayer'
-                })
-              }
+              this.setWinner(square);
             }
           }   
         }
@@ -159,7 +141,7 @@ class App extends React.Component {
 
         
         <div>
-          { (this.state.winner) ? (<div>Winner!</div>) :  <div></div>}
+          { (this.state.winner) ? (<div>Winner is {this.state.winner}!</div>) :  <div></div>}
         </div>
 
 
