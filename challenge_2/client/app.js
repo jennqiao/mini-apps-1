@@ -19,7 +19,7 @@ var app = {
   },
 
   handleClick: function() {
-    console.log('clicked!');
+
 
     var text = $('#inputBox').val();
 
@@ -52,7 +52,7 @@ var app = {
 
   handleData: function(data) {
 
-      if (data[0]=== '"') {
+    if (data[0]=== '"') {
       data = data.slice(1);
     } 
     if (data[data.length-1] === '"') {
