@@ -5,10 +5,12 @@ class App extends React.Component {
     this.state = {
     
         board: [[0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0],[0,0,0,0,0,0,0], [0,0,0,0,0,0,0], [0,0,0,0,0,0,0]],
-        isFirstPlayer: true
+        isFirstPlayer: true,
+        winner: null
       
     }
     this.onClick = this.onClick.bind(this);
+
   }
 
   
@@ -30,7 +32,51 @@ class App extends React.Component {
       board:   copyBoard,
       isFirstPlayer: !this.state.isFirstPlayer
     });
+  
+    this.checkRows();
 
+  }
+
+  checkRows() {
+    
+    var board = this.state.board;
+    for (var i=0; i<board.length; i++) {
+      
+      for (var c=0; c<board[0].length-3; c++) {
+        var row = board[i];
+        var square = row[c];
+        if (square !== 0) {
+          if (square === row[c+1] && square === row[c+2] && square === row[c+3]) {
+            if (square === 1) {
+              this.setState({
+                winner: 'firstPlayer'
+              })
+            } else {
+              this.setState({
+                  winner: 'secondPlayer'
+                })
+            }
+          }
+        }      
+      }
+    }
+  }
+
+  checkCols(){
+  
+    var board = this.state.board;
+    for (var c=0; c<board[0].length; c++) {
+
+      for (var r=board.length-1; r>=0; r--) {
+        var square = board[r][c];
+        
+        if (square !== 0) {
+
+          
+        }
+      
+      }
+    }
   }
 
   render() {
@@ -45,12 +91,21 @@ class App extends React.Component {
           <Headers data={[0,1,2,3,4,5,6]} selectColumn={this.onClick} />   
           {
             this.state.board.map((row, index)=> {
-              return <Row data={row} row={index} selectSquare={this.onClick} />
+              return <Row key={index} data={row} row={index} selectSquare={this.onClick} />
             })
           }
           </tbody>
         </table>  
+
+        
+        <div>
+          { (this.state.winner) ? (<div>Winner!</div>) :  <div></div>}
+        </div>
+
+
       </div>
+
+      
 
     )
   }
@@ -62,7 +117,7 @@ var Headers = ({data, selectColumn}) =>  (
     {
     
       data.map((row, index) => {
-        return <th onClick={ ()=> {selectColumn(index)}}>{index+1}</th>
+        return <th key={index} onClick={ ()=> {selectColumn(index)}}>v</th>
       })
       
     }
@@ -75,7 +130,13 @@ var Row = ({data, row, selectSquare}) => (
   <tr>
     {
       data.map( (square,index) => {
-        return <td onClick={ () => selectSquare(row,index)}>{square}</td>
+
+        if (square !== 0) {
+          return <td key={index} className={(square===1) ? 'yellow': 'red'}></td>
+        } else {
+          return <td key={index}></td>
+
+        }
       })
     }
   </tr>

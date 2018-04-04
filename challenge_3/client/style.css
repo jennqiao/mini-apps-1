@@ -1,0 +1,26 @@
+table {
+  width: 80%;
+}
+
+th, td {
+  padding: 20px;
+  text-align: center;
+
+}
+
+td {
+  border: 1px solid black;
+  border-radius: 50%;
+  height: 25px;
+  width: 20px;
+
+}
+
+.yellow {
+
+  background-color: #FFD700;
+}
+
+.red {
+  background-color: red;
+}
