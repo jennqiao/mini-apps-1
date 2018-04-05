@@ -1,10 +1,31 @@
+body {
+  text-align: center;
+}
+
 table {
-  width: 80%;
+  table-layout: fixed;
+  width: 500px;
+  text-align:center; 
+  margin-left:auto; 
+  margin-right:auto; 
+
+}
+
+.board {
+  background-color: blue;
+  border: 10px solid blue;
 }
 
 th, td {
   padding: 20px;
   text-align: center;
+  background-color: white;
+
+}
+
+th {
+  border: none;
+
 
 }
 
@@ -23,4 +44,13 @@ td {
 
 .red {
   background-color: red;
+}
+
+.winner {
+
+}
+
+th {
+
+  cursor: pointer;
 }

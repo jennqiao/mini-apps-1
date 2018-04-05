@@ -127,10 +127,12 @@ class App extends React.Component {
 
       <div>
         <h1>CONNECT 4 TO WIN</h1>
-      
         <table>
-          <tbody>
           <Headers data={[0,1,2,3,4,5,6]} selectColumn={this.onClick} />   
+
+        </table>
+        <table className="board">
+          <tbody>
           {
             this.state.board.map((row, index)=> {
               return <Row key={index} data={row} row={index} selectSquare={this.onClick} />
@@ -139,9 +141,8 @@ class App extends React.Component {
           </tbody>
         </table>  
 
-        
         <div>
-          { (this.state.winner) ? (<div>Winner is {this.state.winner}!</div>) :  <div></div>}
+          { (this.state.winner) ? (<h2 className='winner'>Winner is {this.state.winner}!</h2>) :  <div></div>}
         </div>
 
 
